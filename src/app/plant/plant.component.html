@@ -1,0 +1,55 @@
+<p class="title">Add plant</p>
+
+<form (ngSubmit)="onSubmit()" class="plant-form">
+  <div>
+    <label for="plantName">Plant Name:</label>
+    <input type="text" id="plantName" [(ngModel)]="plant.name" name="name" required>
+  </div>
+  <div>
+    <label for="plantDescription">Plant Description:</label>
+    <textarea id="plantDescription" [(ngModel)]="plant.description" name="description" required></textarea>
+  </div>
+  <div>
+    <label for="plantLocation">Plant Location:</label>
+    <select id="plantLocation" [(ngModel)]="plant.location" name="location" required>
+      <option value="shade">Shade</option>
+      <option value="partial shade">Partial Shade</option>
+      <option value="indirect sunlight">Indirect Sunlight</option>
+      <option value="direct sunlight">Direct Sunlight</option>
+    </select>
+  </div>
+  <div>
+    <label for="water">Water:</label>
+    <input type="text" id="water" [(ngModel)]="plant.water" name="water" required>
+  </div>
+  <div>
+    <label for="repotting">Repotting:</label>
+    <input type="text" id="repotting" [(ngModel)]="plant.repotting" name="repotting" required>
+  </div>
+  <div>
+    <label for="toxic">Toxic:</label>
+    <input type="text" id="toxic" [(ngModel)]="plant.toxic">
+  </div>
+  <div>
+    <label for="image">Image URL:</label>
+    <input type="text" id="image" [(ngModel)]="plant.image" name="image" required>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+<p class="title">Plantlist</p>
+
+<div class="search-container">
+  <input type="text" placeholder="Search.." class="searchbar" [(ngModel)]="searchQuery" (input)="filterPlants()">
+  <img src="assets/images/search.png" alt="search" class="search-icon">
+</div>
+
+<div class="all-boxes">
+  <div *ngFor="let plant of filteredPlants" class="plant-box" (click)="viewPlantDetails(plant.id)">
+    <img *ngIf="plant.image" [src]="plant.image" [alt]="plant.name" class="plant-image" />
+    <p class="plant-name">
+      {{ plant.name }}
+      <img src="assets/images/delete.png" alt="Delete" class="delete-icon" (click)="deletePlant(plant.id, $event)" />
+    </p>
+  </div>
+</div>
